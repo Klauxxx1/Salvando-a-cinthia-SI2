@@ -86,7 +86,3 @@ class IncidenteOut(ORMModel):
     creado_en: datetime
     evidencias: List[EvidenciaOut] | None = []
     diagnosticos: List[DiagnosticoOut] | None = []
-
-class IncidentePatchEstado(BaseModel):
-    """para actualizar SOLO el estado (usado en móvil)"""
-    estado: str

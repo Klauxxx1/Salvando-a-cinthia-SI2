@@ -633,9 +633,8 @@ export class IncidentesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isClient) {
       const hasText = !!this.createForm.descripcion?.trim();
       const hasAudio = !!this.audioEvidenceFile;
-      const hasImages = this.imageEvidenceFiles.length > 0;
-      if (!this.createForm.vehiculo_id || !this.createForm.tipo || !this.createForm.latitud || !this.createForm.longitud || (!hasText && !hasAudio && !hasImages)) {
-        this.message = 'Debes completar vehículo, tipo, mapa y al menos una evidencia en texto, audio o imágenes';
+      if (!this.createForm.vehiculo_id || !this.createForm.tipo || !this.createForm.latitud || !this.createForm.longitud || (!hasText && !hasAudio)) {
+        this.message = 'Debes completar vehículo, tipo, mapa y descripción en texto o audio';
         return;
       }
     }
@@ -643,7 +642,7 @@ export class IncidentesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.api.create({
       vehiculo_id: this.createForm.vehiculo_id || undefined,
       tipo: this.createForm.tipo || undefined,
-      descripcion: this.createForm.descripcion || (this.isClient && this.audioEvidenceFile ? 'Descripción adjunta en audio.' : this.isClient && this.imageEvidenceFiles.length > 0 ? 'Evidencia fotográfica adjunta.' : undefined),
+      descripcion: this.createForm.descripcion || (this.isClient && this.audioEvidenceFile ? 'Descripción adjunta en audio.' : undefined),
       prioridad: this.isClient ? undefined : (this.createForm.prioridad ?? undefined),
       latitud: this.createForm.latitud ?? undefined,
       longitud: this.createForm.longitud ?? undefined,

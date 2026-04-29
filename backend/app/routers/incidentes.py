@@ -371,8 +371,7 @@ def incidentes_add_evid_file(
         with open(tmp_path, "wb") as out:
             out.write(archivo.file.read())
 
-        # upload to Cloudinary when credentials are available; otherwise
-        # fall back to local storage so the endpoint still works.
+        # Try Cloudinary first; if it is not configured or fails, store locally.
         use_cloudinary = all(
             [
                 settings.cloudinary_cloud_name,
