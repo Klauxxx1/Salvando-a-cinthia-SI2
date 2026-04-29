@@ -2,6 +2,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.core.config import get_settings
 from app.routers import (
@@ -51,6 +52,10 @@ app.include_router(vehiculos.router, prefix="/api")
 app.include_router(incidentes.router, prefix="/api")
 app.include_router(empresa.router, prefix="/api")
 app.include_router(pagos.router)
+
+media_path = Path(settings.media_root)
+media_path.mkdir(parents=True, exist_ok=True)
+app.mount(settings.media_url, StaticFiles(directory=str(media_path)), name="media")
 
 
 @app.get("/health")
